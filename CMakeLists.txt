@@ -3,49 +3,30 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION True)
-
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+set(CXX_STANDARD 23)
 
 project(
-    CHANGEME
-    LANGUAGES CXX
-    VERSION 0.1.0
-    DESCRIPTION "MyProject"
-    HOMEPAGE_URL https://github.com/hugsy/changeme
+    xp
+    DESCRIPTION ""
+    HOMEPAGE_URL https://github.com/hugsy/cpp-pwn-template
 )
 
 set(PROJECT_AUTHOR hugsy)
 set(PROJECT_LICENSE MIT)
-
-set(CXX_STANDARD 23)
-
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
-option(DEBUG                       "Enable Debug"                                             ON)
-option(BUILD_TOOLKIT               "Compile the executables of pwn++ toolkit"                 ON)
-option(BUILD_TESTING               "Compile the test suite"                                   ON)
-
 set(PROJECT_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
 
+option(DEBUG         ""        ON)
 
-#
-# Build main part
-#
+option(INCLUDE_ASSEMBLER         ""        OFF) # todo remove
+option(INCLUDE_DISASSEMBLER         ""        OFF) # todo remove
+
+option(PWN_LOG_USE_COLOR         ""        OFF)
+option(PWN_INCLUDE_ASSEMBLER         ""        OFF)
+option(PWN_INCLUDE_DISASSEMBLER         ""        OFF)
+option(PWN_BUILD_TESTING         ""        OFF)
+option(PWN_BUILD_TOOLKIT         ""        OFF)
+option(PWN_BUILD_TOOLKIT         ""        OFF)
+option(PWN_ENABLE_LUA_BACKDOOR         ""                        OFF)
+
+add_subdirectory(${PROJECT_SOURCE_DIR}/lib/pwn++)
 add_subdirectory(src)
-
-
-#
-# Build unit tests
-#
-if(BUILD_TESTING)
-    include(CTest)
-    add_subdirectory(tests)
-endif()
-
-
-#
-# Build toolkit
-#
-if(BUILD_TOOLKIT)
-    add_subdirectory(tools)
-endif()

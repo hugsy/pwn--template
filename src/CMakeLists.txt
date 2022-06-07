@@ -1,25 +1,22 @@
-project(ProjectLib)
+project(xp LANGUAGES CXX VERSION 0.1.0)
 
 set(PROJECT_LIB_SRC_DIR ${PROJECT_ROOT_DIR}/src CACHE INTERNAL "PROJECT_LIB_SRC_DIR")
 
-#
-# Create the constants.hpp macro file
-#
-configure_file(
-    "constants.hpp.in"
-    "constants.hpp"
-    NEWLINE_STYLE WIN32
+set(
+    SOURCE_FILES
+    main.cc
 )
 
-#
-# Print out cmake compile info
-#
-message(STATUS "CMAKE_MODULE_PATH:                 ${CMAKE_MODULE_PATH}")
-message(STATUS "CMAKE_CXX_LINK_EXECUTABLE:         ${CMAKE_CXX_LINK_EXECUTABLE}")
-message(STATUS "CMAKE_CXX_LINK_FLAGS:              ${CMAKE_CXX_LINK_FLAGS}")
-message(STATUS "CMAKE_EXE_LINKER_FLAGS:            ${CMAKE_EXE_LINKER_FLAGS}")
-message(STATUS "CMAKE_EXE_LINKER_FLAGS_RELEASE:    ${CMAKE_EXE_LINKER_FLAGS_RELEASE}")
-message(STATUS "CMAKE_SHARED_LINKER_FLAGS:         ${CMAKE_SHARED_LINKER_FLAGS}")
-message(STATUS "CMAKE_SHARED_LINKER_FLAGS_RELEASE: ${CMAKE_SHARED_LINKER_FLAGS_RELEASE}")
-message(STATUS "CMAKE_SYSTEM_PROCESSOR:            ${CMAKE_SYSTEM_PROCESSOR}")
-message(STATUS "CMAKE_SYSTEM_NAME:                 ${CMAKE_SYSTEM_NAME}")
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+
+if(DEBUG)
+    target_compile_options(${PROJECT_NAME} PRIVATE /MTd)
+else()
+    target_compile_options(${PROJECT_NAME} PRIVATE /MT)
+endif(DEBUG)
+
+target_include_directories(${PROJECT_NAME}    PUBLIC pwn++)
+target_compile_definitions(${PROJECT_NAME}    PUBLIC _UNICODE UNICODE)
+target_compile_options(${PROJECT_NAME}    PUBLIC        /sdl /WX /Gy /Gm- /permissive-)
+target_link_options(${PROJECT_NAME}  PUBLIC        /CETCOMPAT /profile /DEBUGTYPE:cv,fixup)
+target_link_libraries(${PROJECT_NAME} PUBLIC pwn++)
