@@ -8,34 +8,12 @@ set(
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
-
-if(DEBUG)
-    target_compile_options(${PROJECT_NAME} PRIVATE /MTd)
-else()
-    target_compile_options(${PROJECT_NAME} PRIVATE /MT)
-endif(DEBUG)
-
-target_include_directories(${PROJECT_NAME}
-    PUBLIC
-        pwn++
-)
-
-target_compile_definitions(${PROJECT_NAME}
-    PUBLIC
-        _UNICODE UNICODE
-)
-
-target_compile_options(${PROJECT_NAME}
-    PUBLIC
-        /sdl /WX /Gy /Gm- /permissive-
-)
-
-target_link_options(${PROJECT_NAME}
-    PUBLIC
-        /CETCOMPAT /profile /DEBUGTYPE:cv,fixup
-)
-
-target_link_libraries(${PROJECT_NAME}
-    PUBLIC
-        pwn++
-)
+add_dependencies(${PROJECT_NAME} pwn++)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
+target_include_directories(${PROJECT_NAME} PUBLIC $<TARGET_PROPERTY:pwn++,INTERFACE_INCLUDE_DIRECTORIES>)
+target_compile_definitions(${PROJECT_NAME} PRIVATE $<TARGET_PROPERTY:pwn++,INTERFACE_COMPILE_DEFINITIONS>)
+target_compile_options(${PROJECT_NAME} PRIVATE $<TARGET_PROPERTY:pwn++,INTERFACE_COMPILE_OPTIONS>)
+target_link_options(${PROJECT_NAME} PRIVATE  $<TARGET_PROPERTY:pwn++,INTERFACE_LINK_OPTIONS> /SUBSYSTEM:Console)
+target_link_libraries(${PROJECT_NAME} PRIVATE pwn++ $<TARGET_PROPERTY:pwn++,INTERFACE_LINK_LIBRARIES>)
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
