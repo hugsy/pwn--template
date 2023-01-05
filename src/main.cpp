@@ -3,6 +3,6 @@
 int
 wmain(const int argc, const wchar_t* argv)
 {
-    ok(L"Hello World\n");
+    ok(L"hack the planet 🌍!!");
     return 0;
 }
