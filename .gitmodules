@@ -1,3 +1,0 @@
-[submodule "lib/pwn++"]
-	path = lib/pwn++
-	url = https://github.com/hugsy/pwn--

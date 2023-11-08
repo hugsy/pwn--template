@@ -1,4 +1,4 @@
-#include <pwn.hpp>
+#include <pwn>
 
 int
 wmain(const int argc, const wchar_t* argv)
