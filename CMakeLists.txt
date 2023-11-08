@@ -16,14 +16,13 @@ set(PROJECT_LICENSE MIT)
 set(PROJECT_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
 set(PROJECT_SRC_DIR ${PROJECT_ROOT_DIR}/src)
 
-option(DEBUG "" ON)
-option(PWN_LOG_USE_COLOR "" OFF)
-option(PWN_BUILD_TESTING "" OFF)
-option(PWN_BUILD_TOOLKIT "" OFF)
-option(PWN_BUILD_DOCS "" OFF)
-option(PWN_ENABLE_LUA_BACKDOOR "" OFF)
-option(PWN_DISASSEMBLE_X86 "" OFF)
-option(PWN_DISASSEMBLE_ARM64 "" OFF)
+set(DEBUG OFF)
+set(PWN_LOG_USE_COLOR ON)
+set(PWN_BUILD_TESTING OFF)
+set(PWN_BUILD_TOOLKIT OFF)
+set(PWN_BUILD_DOCS OFF)
+set(PWN_DISASSEMBLE_X86 ON)
+set(PWN_DISASSEMBLE_ARM64 ON)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -33,10 +32,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(pwn++)
 
-add_executable(${PROJECT_NAME}
-    ${PROJECT_SRC_DIR}/main.cpp
-)
-
+file(GLOB_RECURSE FILES ${PROJECT_SRC_DIR}/*.cpp ${PROJECT_SRC_DIR}/*.cxx ${PROJECT_SRC_DIR}/*.asm)
+add_executable(${PROJECT_NAME} ${FILES})
 add_dependencies(${PROJECT_NAME} pwn++)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
