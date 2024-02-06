@@ -1,18 +1,19 @@
-# ChangeMe
+# MyProject
 
 Start with
-```bash
-git clone https://github.com/hugsy/template-pwn pwn
+
+```compile
+git clone -q https://github.com/hugsy/template-pwn MyProject
 ```
 
 Edit source files in `src/` and add their paths to `CMakeLists.txt`.
 
 Build
 
-```bash
-mkdir build && cd build
-cmake .. -T host=x64 -A x64
-cmake --build .
+```console
+cd MyProject
+cmake -S ./ -B build/ -T host=x64 -A x64
+cmake --build build/
 ```
 
 Make sure to change all the `CHANGE` values, and edit the root `CMakeLists.txt` to enable/disable the wanted features to build along side your tool.
