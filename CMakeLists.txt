@@ -24,6 +24,8 @@ set(PWN_BUILD_DOCS OFF)
 set(PWN_DISASSEMBLE_X86 OFF)
 set(PWN_DISASSEMBLE_ARM64 OFF)
 
+option(BUILD_AS_SHARED_LIBRARY "Build as a shared library" OFF)
+
 include(FetchContent)
 FetchContent_Declare(
     pwn++
@@ -33,8 +35,11 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(pwn++)
 
 file(GLOB_RECURSE FILES ${PROJECT_SRC_DIR}/*.cpp ${PROJECT_SRC_DIR}/*.cxx ${PROJECT_SRC_DIR}/*.asm)
-add_executable(${PROJECT_NAME} ${FILES})
-# add_library(${PROJECT_NAME} SHARED ${FILES})
+if(BUILD_AS_SHARED_LIBRARY)
+    add_library(${PROJECT_NAME} SHARED ${FILES})
+else()
+    add_executable(${PROJECT_NAME} ${FILES})
+endif(BUILD_AS_SHARED_LIBRARY)
 add_dependencies(${PROJECT_NAME} pwn++)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_23)
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 23)
