@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.26)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION True)
-set(CXX_STANDARD 20)
+set(CXX_STANDARD 23)
 
 project(
     ChangeMe
@@ -34,9 +34,10 @@ FetchContent_MakeAvailable(pwn++)
 
 file(GLOB_RECURSE FILES ${PROJECT_SRC_DIR}/*.cpp ${PROJECT_SRC_DIR}/*.cxx ${PROJECT_SRC_DIR}/*.asm)
 add_executable(${PROJECT_NAME} ${FILES})
+# add_library(${PROJECT_NAME} SHARED ${FILES})
 add_dependencies(${PROJECT_NAME} pwn++)
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
-set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_23)
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 23)
 target_include_directories(${PROJECT_NAME} PUBLIC $<TARGET_PROPERTY:pwn++,INTERFACE_INCLUDE_DIRECTORIES>)
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<TARGET_PROPERTY:pwn++,INTERFACE_COMPILE_DEFINITIONS>)
 target_compile_options(${PROJECT_NAME} PRIVATE $<TARGET_PROPERTY:pwn++,INTERFACE_COMPILE_OPTIONS>)
