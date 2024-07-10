@@ -19,22 +19,12 @@ cmake --build build
 Make sure to change all the `ChangeMe` values, and edit the root `CMakeLists.txt` to enable/disable the wanted features to build along side your tool.
 
 _Note_: To easily cross-compile, simply change cmake options `-A` and `-T`. `pwn++` currently supports 
- - `win32`
-```bash
-cmake --build .. -T host=x64 -A win32
-```
- - `x64`
-```bash
-cmake --build .. -T host=x64 -A x64
-```
- - `arm64`
-```bash
-cmake --build .. -T host=x64 -A arm64
-```
- - `arm`
-```bash
-cmake --build .. -T host=x86 -A arm
-```
 
+| Architecture | Command |
+|:-------------|:---------|
+| `win32` | `cmake --build .. -T host=x64 -A win32` |
+| `x64` | `cmake --build .. -T host=x64 -A x64` |
+| `arm64` | `cmake --build .. -T host=x64 -A arm64` |
+| `arm` | `cmake --build .. -T host=x86 -A arm` |
 
 Enjoy 🍻!
