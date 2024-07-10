@@ -14,9 +14,7 @@ jobs:
   build:
     name: "${{ matrix.variants.runner }}/${{ matrix.variants.arch }}/${{ matrix.variants.config }}"
     env:
-      CMAKE_FLAGS: '-DPWN_BUILD_DOCS=OFF -DPWN_DISASSEMBLE_X86=ON -DPWN_DISASSEMBLE_ARM64=ON -DPWN_BUILD_TOOLKIT=ON -DPWN_BUILD_TESTING=ON'
       NB_CPU: 1
-      VERBOSE: 1
 
     strategy:
       fail-fast: false
@@ -35,7 +33,7 @@ jobs:
         Import-Module .\.github\Invoke-VisualStudio.ps1; Invoke-VisualStudio2022${{ matrix.variants.arch }}
     - run: choco install gnuwin32-m4
       # run: winget install gnuwin32-m4
-    - run: cmake -S . -B ./build -A ${{ matrix.variants.arch }} ${{ env.CMAKE_FLAGS }}
+    - run: cmake -S . -B ./build -A ${{ matrix.variants.arch }}
     - run: cmake --build ./build --parallel ${{ env.NB_CPU }} --config ${{ matrix.variants.config }}
     - run: cmake --install ./build --config ${{ matrix.variants.config }} --prefix ./artifact --verbose
     - uses: actions/upload-artifact@v4
