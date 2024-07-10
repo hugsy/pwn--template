@@ -51,7 +51,8 @@ jobs:
     - run: mkdir artifact
     - if: startsWith(matrix.variants.os, 'windows-')
       shell: pwsh
-      run: winget install gnuwin32-m4
+      run: choco install gnuwin32-m4
+      # run: winget install gnuwin32-m4
     - if: startsWith(matrix.variants.os, 'windows-')
       run: cmake -S . -B ./build -A ${{ matrix.variants.arch }} ${{ env.CMAKE_FLAGS }}
     - if: startsWith(matrix.variants.os, 'ubuntu-')
