@@ -1,9 +1,16 @@
 # ChangeMe
 
-Start with
+Start:
 
+ - with [`gh`](https://github.com/github/cli) (preferred)
 ```compile
-git clone -q https://github.com/hugsy/template-pwn ChangeMe
+gh repo create ChangeMe --template hugsy/template-pwn --clone # --private
+```
+
+
+ - with `git`
+```compile
+git clone --depth 1 -q https://github.com/hugsy/template-pwn ChangeMe
 ```
 
 Edit source files in `src/` and add their paths to `CMakeLists.txt`.
