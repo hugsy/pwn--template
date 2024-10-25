@@ -1,6 +1,6 @@
 #include <pwn>
 
-#if 0
+#ifdef BUILD_SHARED_LIBS
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 #else
 auto wmain(const int argc, const wchar_t* argv) -> int
